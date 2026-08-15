@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 - 2026-08-15
+
+- add a one-line hardened Linux VPS installer
+- add guided OpenAI Secure MCP Tunnel setup
+- add a copyable assistant onboarding prompt and VPS sizing guide
+- support pytest 9 in development environments
+
 ## 1.0.0
 
 - Generic Wisp Client API support.

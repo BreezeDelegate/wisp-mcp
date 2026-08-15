@@ -1,0 +1,35 @@
+[Unit]
+Description=Wisp MCP OpenAI Secure MCP Tunnel
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=wisp-mcp
+Group=wisp-mcp
+Environment=HOME=/var/lib/wisp-mcp
+Environment=XDG_CONFIG_HOME=/var/lib/wisp-mcp/.config
+EnvironmentFile=/etc/wisp-mcp/openai.env
+RuntimeDirectory=wisp-mcp-tunnel
+RuntimeDirectoryMode=0750
+ExecStart=/usr/local/bin/tunnel-client run --profile wisp --profile-dir /var/lib/wisp-mcp/tunnel/profiles --health.listen-addr 127.0.0.1:0 --health.url-file /run/wisp-mcp-tunnel/health.url
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/wisp-mcp /run/wisp-mcp-tunnel
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+SystemCallArchitectures=native
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

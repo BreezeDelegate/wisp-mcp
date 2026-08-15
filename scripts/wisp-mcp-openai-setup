@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ "$(id -u)" -ne 0 ]; then
+  echo "Run this helper through sudo." >&2
+  exit 1
+fi
+
+for cmd in tunnel-client runuser systemctl curl; do
+  command -v "$cmd" >/dev/null 2>&1 || { echo "$cmd is required." >&2; exit 1; }
+done
+[ -x /usr/local/bin/wisp-mcp-stdio ] || { echo "Wisp MCP VPS install was not found." >&2; exit 1; }
+
+read -r -p "OpenAI tunnel ID: " tunnel_id </dev/tty
+read -r -s -p "OpenAI tunnel runtime API key: " api_key </dev/tty
+printf "\n" >/dev/tty
+
+case "$tunnel_id" in
+  tunnel_*) ;;
+  *) echo "Tunnel ID must start with tunnel_." >&2; exit 1 ;;
+esac
+case "$api_key" in
+  sk-*) ;;
+  *) echo "Runtime API key must start with sk-." >&2; exit 1 ;;
+esac
+
+install -d -m 0750 -o root -g wisp-mcp /etc/wisp-mcp
+install -d -m 0750 -o wisp-mcp -g wisp-mcp /var/lib/wisp-mcp/tunnel/profiles
+printf "CONTROL_PLANE_API_KEY=%s\n" "$api_key" > /etc/wisp-mcp/openai.env
+chown root:wisp-mcp /etc/wisp-mcp/openai.env
+chmod 0640 /etc/wisp-mcp/openai.env
+
+runuser -u wisp-mcp -- env \
+  HOME=/var/lib/wisp-mcp \
+  CONTROL_PLANE_API_KEY="$api_key" \
+  tunnel-client init \
+    --force \
+    --sample sample_mcp_stdio_local \
+    --profile wisp \
+    --profile-dir /var/lib/wisp-mcp/tunnel/profiles \
+    --tunnel-id "$tunnel_id" \
+    --mcp-command /usr/local/bin/wisp-mcp-stdio \
+    --health-listen-addr 127.0.0.1:0
+
+runuser -u wisp-mcp -- env \
+  HOME=/var/lib/wisp-mcp \
+  CONTROL_PLANE_API_KEY="$api_key" \
+  tunnel-client doctor --profile wisp --profile-dir /var/lib/wisp-mcp/tunnel/profiles --explain
+
+systemctl enable --now wisp-mcp-openai-tunnel.service
+
+for _ in $(seq 1 30); do
+  if [ -s /run/wisp-mcp-tunnel/health.url ]; then
+    health=$(cat /run/wisp-mcp-tunnel/health.url)
+    if curl -fsS "$health/readyz" >/dev/null 2>&1; then
+      echo "OpenAI tunnel is ready."
+      echo "In ChatGPT, create a developer-mode app, choose Tunnel, select this tunnel, then scan tools."
+      exit 0
+    fi
+  fi
+  sleep 1
+done
+
+journalctl -u wisp-mcp-openai-tunnel.service -n 30 --no-pager >&2 || true
+echo "Tunnel service did not become ready." >&2
+exit 1

@@ -4,6 +4,26 @@ Wisp MCP exposes the Wisp game panel Client API through Model Context Protocol.
 
 It is designed for day-to-day server administration: inspect status and logs, edit files, send console commands, control power, manage backups, and handle common database or panel operations without giving the MCP process unrestricted host access.
 
+## Start here
+
+If you want an assistant to guide the entire setup, copy the ready-made prompt in [docs/ai-guided-setup.md](docs/ai-guided-setup.md). It is written for people who do not want to learn server administration first.
+
+Copy this into your assistant:
+
+```text
+Help me install Wisp MCP from https://github.com/BreezeDelegate/wisp-mcp and connect it to my AI client. Read the current repository docs first and reply in my language. Guide me one step at a time and do as much of the technical work as possible. Never ask me to paste API tokens, passwords, private keys, or tunnel runtime keys into chat; tell me where to enter secrets directly in the terminal or provider UI. If I need an always-on machine, help me choose the smallest sensible Linux VPS for my real workload and do not oversell hardware. For ChatGPT/OpenAI on Debian 12 or Ubuntu 24.04+, prefer the repository one-line VPS installer with --with-openai and OpenAI Secure MCP Tunnel. Verify Wisp with doctor, verify the tunnel is ready, then guide me through only the unavoidable ChatGPT/OpenAI account steps. Start read-only; if I want management, enable only the capabilities I need and keep destructive operations disabled unless I explicitly request them. For later server changes, inspect first, back up risky files, make the smallest change, test it, check logs, and never claim success without verification.
+```
+
+The longer version in [docs/ai-guided-setup.md](docs/ai-guided-setup.md) includes the full decision path.
+
+For a fresh Debian 12 or Ubuntu 24.04+ VPS using ChatGPT/OpenAI, the server-side install is one line:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/BreezeDelegate/wisp-mcp/main/install-vps.sh | sudo bash -s -- --with-openai
+```
+
+It installs Wisp MCP, verifies the Wisp API, and installs the official OpenAI tunnel client. Credentials are entered directly in the terminal and are not passed on the command line. The MCP remains private. See [docs/chatgpt.md](docs/chatgpt.md).
+
 ## Quick start
 
 Requirements: Python 3.11 or newer and a Wisp Client API token.
@@ -68,7 +88,7 @@ Optional write tools cover file changes, console commands, power control, backup
 
 The server publishes operating instructions to MCP clients: inspect first, back up before risky changes, make the smallest change, and verify status and logs afterward.
 
-See [docs/getting-started.md](docs/getting-started.md) for a beginner setup and [docs/operations.md](docs/operations.md) for deployment and safety details.
+See [docs/getting-started.md](docs/getting-started.md) for a local setup, [docs/ai-guided-setup.md](docs/ai-guided-setup.md) for assisted onboarding, [docs/vps.md](docs/vps.md) for VPS sizing, and [docs/operations.md](docs/operations.md) for deployment and safety details.
 
 ## Remote HTTP
 
