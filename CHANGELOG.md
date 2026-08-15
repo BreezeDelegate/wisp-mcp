@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- test the supported Python range on 3.11 and 3.14 in CI
+- add Mypy and Bandit to blocking CI quality checks
+- add a weekly dependency vulnerability audit with `pip-audit`
+
 - add paginated server, directory, backup, and database listings
 - add bounded `read_file_chunk`, literal `find_in_file`, and `file_fingerprint` tools for large files
 - add SHA-256 guarded `safe_write_file` and targeted `replace_in_file` with post-write verification

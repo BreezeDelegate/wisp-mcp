@@ -88,7 +88,8 @@ class WispClient:
         except httpx.RequestError as exc:
             raise WispError("Could not reach the Wisp API") from exc
 
-        assert response is not None
+        if response is None:
+            raise WispError("Wisp API request did not produce a response")
         if response.status_code == 204:
             return {"ok": True, "status_code": 204}
         if 300 <= response.status_code < 400:
