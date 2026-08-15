@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from .client import WispClient
+from .compatibility import check_compatibility
 from .config import WispError, default_config_path, load_settings, validate_server_id
 from .server import run_http, run_stdio
 
@@ -42,6 +43,13 @@ def init_config(path: Path | None = None) -> Path:
     return target
 
 
+async def compatibility() -> None:
+    settings = load_settings()
+    result = await check_compatibility(settings)
+    suffix = f" | default: {result.server_id}" if result.server_id else ""
+    print(f"Wisp compatibility: OK | checks: {len(result.checks)}{suffix}")
+
+
 async def doctor() -> None:
     settings = load_settings()
     if not settings.api_token:
@@ -63,6 +71,7 @@ def main() -> None:
     sub.add_parser("stdio", help="run the MCP server over stdio")
     sub.add_parser("serve", help="run the MCP server over Streamable HTTP")
     sub.add_parser("doctor", help="validate configuration and Wisp API access")
+    sub.add_parser("compatibility", help="run read-only live Wisp API contract checks")
     init_parser = sub.add_parser("init", help="create a local configuration file")
     init_parser.add_argument("--path", type=Path)
     sub.add_parser("config-path", help="print the default configuration path")
@@ -75,6 +84,8 @@ def main() -> None:
             run_http()
         elif args.command == "doctor":
             asyncio.run(doctor())
+        elif args.command == "compatibility":
+            asyncio.run(compatibility())
         elif args.command == "init":
             path = init_config(args.path)
             print(f"Configuration written to {path}")
