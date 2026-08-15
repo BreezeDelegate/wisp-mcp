@@ -2,7 +2,7 @@
   "manifest_version": "0.4",
   "name": "wisp-mcp",
   "display_name": "Wisp MCP",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Manage Wisp Panel game servers through Model Context Protocol: status, files, console, power, backups, databases, and diagnostics.",
   "long_description": "A security-focused MCP server for the WISP game panel Client API. Manage game servers, files, console commands, power, backups, databases, and diagnostics from MCP-compatible AI clients.",
   "author": {

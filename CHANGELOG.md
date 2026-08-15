@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.2 - 2026-08-15
+
+- ensure the OpenAI tunnel parent directory is owned by the Wisp service account before profile initialization
+- use local WISP client/admin screenshots in the beginner recognition guide and README
+
 ## 1.2.1 - 2026-08-15
 
 - make all public positioning and install examples hosting-provider agnostic
