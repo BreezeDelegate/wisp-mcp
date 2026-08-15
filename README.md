@@ -7,6 +7,9 @@ It is provider-agnostic. If your game host exposes the standard Wisp Client API,
 [![CI](https://github.com/BreezeDelegate/wisp-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/BreezeDelegate/wisp-mcp/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/BreezeDelegate/wisp-mcp)](https://github.com/BreezeDelegate/wisp-mcp/releases/latest)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/)
+[![MCP Registry](https://img.shields.io/badge/MCP_Registry-active-2ea44f)](https://registry.modelcontextprotocol.io/?q=io.github.BreezeDelegate%2Fwisp-mcp)
+
+**Links:** [documentation](https://breezedelegate.github.io/wisp-mcp/) · [official MCP Registry](https://registry.modelcontextprotocol.io/?q=io.github.BreezeDelegate%2Fwisp-mcp) · [latest release](https://github.com/BreezeDelegate/wisp-mcp/releases/latest)
 
 ## What Wisp MCP can do
 
