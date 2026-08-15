@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import asyncio
+from importlib.metadata import PackageNotFoundError, version
 from typing import Any
 
 import httpx
 
 from .config import Settings, WispError
 
-APP_VERSION = "1.0.0"
+try:
+    APP_VERSION = version("wisp-mcp")
+except PackageNotFoundError:
+    APP_VERSION = "0.0.0"
 MAX_ERROR_TEXT = 500
 _REDACT_KEYS = ("token", "secret", "password", "authorization", "cookie", "session")
 _RETRYABLE = {429, 502, 503, 504}

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1 - 2026-08-15
+
+- report the installed package version from the MCP runtime and health endpoint
+
 ## 1.1.0 - 2026-08-15
 
 - add a one-line hardened Linux VPS installer
