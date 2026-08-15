@@ -90,7 +90,7 @@ chown -R root:wisp-mcp /opt/wisp-mcp/venv
 chmod -R g+rX /opt/wisp-mcp/venv
 
 install -d -m 0750 -o root -g wisp-mcp /etc/wisp-mcp
-read -r -p "Wisp panel URL (for example https://panel.verycloud.fr): " panel </dev/tty
+read -r -p "WISP panel URL (for example https://panel.example.com): " panel </dev/tty
 read -r -p "Default server ID (optional): " server_id </dev/tty
 read -r -s -p "Wisp Client API token: " api_token </dev/tty
 printf "\n" >/dev/tty

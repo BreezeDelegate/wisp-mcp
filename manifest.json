@@ -4,7 +4,7 @@
   "display_name": "Wisp MCP",
   "version": "1.2.0",
   "description": "Manage Wisp Panel game servers through Model Context Protocol: status, files, console, power, backups, databases, and diagnostics.",
-  "long_description": "A security-focused MCP server for the Wisp game panel Client API. Works with compatible Wisp hosts such as VeryCloud and with game servers including Rust, Minecraft, and others managed by Wisp.",
+  "long_description": "A security-focused MCP server for the WISP game panel Client API. Manage game servers, files, console commands, power, backups, databases, and diagnostics from MCP-compatible AI clients.",
   "author": {
     "name": "BreezeDelegate",
     "url": "https://github.com/BreezeDelegate"
@@ -44,10 +44,11 @@
     "mcp",
     "model-context-protocol",
     "game-server",
-    "verycloud",
     "rust",
     "minecraft",
-    "server-management"
+    "server-management",
+    "wisp-game-panel",
+    "mcp-server"
   ],
   "license": "PolyForm-Noncommercial-1.0.0",
   "compatibility": {
@@ -64,7 +65,7 @@
     "panel_url": {
       "type": "string",
       "title": "Wisp panel URL",
-      "description": "Base URL of your Wisp panel, for example https://panel.verycloud.fr",
+      "description": "Base URL of the WISP panel provided by your game host, for example https://panel.example.com",
       "required": true
     },
     "api_token": {
