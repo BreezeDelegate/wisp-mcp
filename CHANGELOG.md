@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.4.0 - 2026-08-15
 
 - add a maintained French README and a `/fr/` beginner guide with shared visual assets
 - add reciprocal `hreflang` metadata and a bilingual sitemap for the GitHub Pages site
