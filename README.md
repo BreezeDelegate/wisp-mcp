@@ -167,7 +167,7 @@ Registry publishing is automated from signed GitHub release workflows using OIDC
 
 ## Large files and safe edits
 
-For large source files or logs, prefer the bounded tools instead of returning the entire file to the AI:
+For large source files or logs, start with bounded tools to locate the relevant code, but **do not optimize away context needed for correctness**. If a change depends on global state, distant hooks, shared classes, control flow, or interactions across the file, read the complete file even if it costs more tokens.
 
 - `find_in_file` returns small line-numbered excerpts around literal matches;
 - `read_file_chunk` returns a bounded character range plus `next_offset_chars`;

@@ -52,10 +52,13 @@ mcp = MCPServer(
     instructions=(
         "Inspect before changing anything. Read the target file, server status, and relevant logs first. "
         "Before risky edits, create a Wisp backup or copy the file when those capabilities are enabled. "
-        "For large files, prefer find_in_file and read_file_chunk instead of returning the whole file. "
+        "For large files, use find_in_file and read_file_chunk to locate relevant areas first, "
+        "but never trade correctness for token savings. Read the complete file when a change depends "
+        "on global state, distant hooks, shared classes, control flow, or cross-file assumptions. "
         "For existing files, prefer replace_in_file or safe_write_file with the SHA-256 from a prior read. "
-        "Make the smallest useful change, restart only when required, then verify the file, "
-        "status, and logs. "
+        "Optimize context only when it preserves confidence; spend more tokens when broader context "
+        "reduces regression risk. Make the smallest useful change, restart only when required, then "
+        "verify the file, status, and logs. "
         "Never expose API tokens or other secrets. Use destructive tools only for an explicit "
         "destructive request."
     ),
