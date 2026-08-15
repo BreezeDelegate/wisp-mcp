@@ -28,3 +28,15 @@ WISP_API_TOKEN=your_token
 ```
 
 Do not paste the token into an AI conversation. Enter it directly in the setup wizard, terminal, or MCP client secret field.
+
+## Visual examples
+
+### Client dashboard
+
+![WISP client dashboard](assets/wisp-client-panel.webp)
+
+### Administration area
+
+![WISP administration panel](assets/wisp-admin-panel.webp)
+
+Hosts can customize the branding, so use layout and panel terminology as clues rather than expecting an exact visual match.

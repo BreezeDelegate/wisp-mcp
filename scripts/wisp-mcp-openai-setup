@@ -25,6 +25,7 @@ case "$api_key" in
 esac
 
 install -d -m 0750 -o root -g wisp-mcp /etc/wisp-mcp
+install -d -m 0750 -o wisp-mcp -g wisp-mcp /var/lib/wisp-mcp/tunnel
 install -d -m 0750 -o wisp-mcp -g wisp-mcp /var/lib/wisp-mcp/tunnel/profiles
 printf "CONTROL_PLANE_API_KEY=%s\n" "$api_key" > /etc/wisp-mcp/openai.env
 chown root:wisp-mcp /etc/wisp-mcp/openai.env

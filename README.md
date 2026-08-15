@@ -15,9 +15,9 @@ It is **hosting-provider agnostic**. If your hosting company gives you a WISP pa
 
 If your game-server panel looks like this, it is likely WISP:
 
-![Official WISP panel example](https://wisp.gg/images/features/gamequery.png)
+![WISP client panel example](docs/assets/wisp-client-panel.webp)
 
-*Official WISP interface example served by wisp.gg. Hosts can white-label WISP, so colors, logo and domain may differ.*
+*Typical WISP client dashboard. Hosts can white-label WISP, so colors, logo and domain may differ.*
 
 If you are unsure, ask your host: **“Does my server use WISP, and can I create a WISP Client API token?”** See [How to recognize WISP](docs/panel-recognition.md).
 
