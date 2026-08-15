@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0 - 2026-08-15
+
+- add a read-only live WISP API compatibility probe that detects route or response-shape breakage
+- add Dependabot coverage for Python dependencies and GitHub Actions
+
 ## 1.2.2 - 2026-08-15
 
 - ensure the OpenAI tunnel parent directory is owned by the Wisp service account before profile initialization

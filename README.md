@@ -52,6 +52,8 @@ The installer asks for:
 
 It creates a dedicated system user, stores credentials outside Git, and runs `wisp-mcp doctor` before reporting success.
 
+For a deeper read-only API compatibility check, run `wisp-mcp compatibility`. It verifies the minimal response contract used by the MCP without modifying the game server.
+
 For **ChatGPT**, install the OpenAI tunnel helper at the same time:
 
 ```bash
