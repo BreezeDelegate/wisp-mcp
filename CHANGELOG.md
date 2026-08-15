@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2 - 2026-08-15
+
+- fix Linux VPS installer permissions so the dedicated `wisp-mcp` service account can execute the installed virtual environment
+
 ## 1.1.1 - 2026-08-15
 
 - report the installed package version from the MCP runtime and health endpoint
