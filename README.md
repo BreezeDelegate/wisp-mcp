@@ -24,8 +24,9 @@ If you are unsure, ask your host: **“Does my server use WISP, and can I create
 ## What it can do
 
 - inspect server state, CPU, memory, disk and network usage;
-- browse files, read configs and tail logs;
-- create and edit plugin/config files;
+- browse paginated directories, read configs and tail logs;
+- search large files and read bounded chunks without flooding the model context;
+- create files, or safely edit existing plugin/config files with SHA-256 change detection;
 - send console commands;
 - start, stop and restart servers;
 - create and inspect backups;
@@ -161,6 +162,23 @@ Releases include:
 - `.mcpb` MCP Bundle.
 
 Registry publishing is automated from signed GitHub release workflows using OIDC.
+
+## Large files and safe edits
+
+For large source files or logs, prefer the bounded tools instead of returning the entire file to the AI:
+
+- `find_in_file` returns small line-numbered excerpts around literal matches;
+- `read_file_chunk` returns a bounded character range plus `next_offset_chars`;
+- `file_fingerprint` returns SHA-256, byte, character, and line counts without returning content.
+
+Regular `read_file` responses also include a SHA-256 fingerprint. For existing files, use that fingerprint with:
+
+- `safe_write_file` for a deliberate whole-file replacement;
+- `replace_in_file` for a small exact replacement inside a large file.
+
+Both guarded write tools re-read the file before writing and verify the stored content afterward. This is optimistic concurrency rather than an atomic filesystem lock, because the WISP Client API does not expose a compare-and-swap write primitive through this integration.
+
+Listings for servers, directories, backups, databases, and audit logs support bounded pagination so clients do not need to load an unbounded collection at once.
 
 ## Security model
 
