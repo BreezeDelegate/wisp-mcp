@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wisp MCP — Wisp Panel game server management with Model Context Protocol</title>
+  <meta name="description" content="Open-source Wisp Panel MCP server for managing game servers, files, console commands, power, backups, databases and diagnostics through the Wisp Client API. VeryCloud supported.">
+  <link rel="canonical" href="https://breezedelegate.github.io/wisp-mcp/">
+  <meta property="og:title" content="Wisp MCP — game server management for Wisp Panel">
+  <meta property="og:description" content="Manage Wisp-hosted Rust, Minecraft and other game servers through Model Context Protocol. VeryCloud setup included.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://breezedelegate.github.io/wisp-mcp/">
+  <meta name="twitter:card" content="summary">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareSourceCode",
+    "name":"Wisp MCP",
+    "description":"Wisp Panel MCP server for secure game server management through the Wisp Client API.",
+    "codeRepository":"https://github.com/BreezeDelegate/wisp-mcp",
+    "programmingLanguage":"Python",
+    "runtimePlatform":"Python 3.11+",
+    "license":"https://polyformproject.org/licenses/noncommercial/1.0.0/"
+  }
+  </script>
+  <style>
+    :root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#090b0f;color:#f3f5f7}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -20%,#1b2430 0,#090b0f 42%);min-height:100vh}
+    main{width:min(980px,92vw);margin:auto;padding:72px 0 96px}nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:74px}.brand{font-weight:800;letter-spacing:-.04em}.navlinks{display:flex;gap:18px}a{color:#dce7f4;text-decoration:none}.navlinks a{color:#9eabb9}
+    .eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.15em;color:#8fa3b8;font-weight:700}h1{font-size:clamp(46px,8vw,82px);line-height:.96;letter-spacing:-.065em;margin:14px 0 22px;max-width:850px}p{color:#aab4c0;line-height:1.7;font-size:17px;max-width:760px}.lead{font-size:20px}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 70px}.button{display:inline-flex;padding:12px 18px;border-radius:12px;background:#f3f5f7;color:#0b0d11;font-weight:700}.button.secondary{background:#151a21;color:#dce7f4;border:1px solid #29313b}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:#10141a;border:1px solid #202832;border-radius:16px;padding:22px}.card h2{margin:0 0 10px;font-size:18px}.card p{font-size:14px;margin:0}
+    pre{background:#0c1015;border:1px solid #202832;border-radius:14px;padding:18px;overflow:auto;color:#dce7f4;margin:18px 0 0}section{margin-top:70px}h2{font-size:30px;letter-spacing:-.035em}footer{margin-top:78px;padding-top:26px;border-top:1px solid #202832;color:#697684;font-size:13px}@media(max-width:760px){main{padding-top:34px}nav{margin-bottom:54px}.grid{grid-template-columns:1fr}.navlinks{display:none}}
+  </style>
+</head>
+<body>
+<main>
+  <nav><a class="brand" href="./">Wisp MCP</a><div class="navlinks"><a href="https://github.com/BreezeDelegate/wisp-mcp">GitHub</a><a href="https://github.com/BreezeDelegate/wisp-mcp/releases/latest">Releases</a><a href="https://github.com/BreezeDelegate/wisp-mcp/blob/main/docs/verycloud.md">VeryCloud</a></div></nav>
+  <div class="eyebrow">Model Context Protocol · Wisp Panel</div>
+  <h1>Manage Wisp game servers through MCP.</h1>
+  <p class="lead">Wisp MCP exposes the Wisp Client API as secure MCP tools for server status, files, logs, console commands, power, backups, databases and diagnostics. It works with compatible Wisp hosts such as VeryCloud.</p>
+  <div class="actions"><a class="button" href="https://github.com/BreezeDelegate/wisp-mcp">View on GitHub</a><a class="button secondary" href="https://github.com/BreezeDelegate/wisp-mcp/releases/latest">Latest release</a></div>
+  <div class="grid">
+    <div class="card"><h2>Game-server focused</h2><p>Use the same integration for Rust, Minecraft and other game servers hosted through Wisp.</p></div>
+    <div class="card"><h2>Safe by default</h2><p>Read-only first. Console, file changes, power, backups and destructive actions are separate capability gates.</p></div>
+    <div class="card"><h2>Local or remote</h2><p>Use stdio locally, Streamable HTTP remotely, or keep the service private behind a secure outbound tunnel.</p></div>
+  </div>
+  <section>
+    <h2>One-line VPS install</h2>
+    <p>On Debian 12 or Ubuntu 24.04+:</p>
+    <pre><code>curl -fsSL https://raw.githubusercontent.com/BreezeDelegate/wisp-mcp/main/install-vps.sh | sudo bash -s -- --with-openai</code></pre>
+  </section>
+  <section>
+    <h2>VeryCloud Wisp MCP</h2>
+    <p>VeryCloud users can set <code>WISP_PANEL_URL=https://panel.verycloud.fr</code>, add a Wisp Client API token, run <code>wisp-mcp doctor</code>, and start in read-only mode. The repository includes a dedicated VeryCloud guide.</p>
+  </section>
+  <section>
+    <h2>Discover and install</h2>
+    <p>Releases include wheel, source archive and MCP Bundle artifacts. Wisp MCP is also prepared for publication in the official MCP Registry under <code>io.github.BreezeDelegate/wisp-mcp</code>.</p>
+  </section>
+  <footer>Wisp MCP · BreezeDelegate · PolyForm Noncommercial 1.0.0</footer>
+</main>
+</body>
+</html>

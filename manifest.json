@@ -1,0 +1,127 @@
+{
+  "manifest_version": "0.4",
+  "name": "wisp-mcp",
+  "display_name": "Wisp MCP",
+  "version": "1.2.0",
+  "description": "Manage Wisp Panel game servers through Model Context Protocol: status, files, console, power, backups, databases, and diagnostics.",
+  "long_description": "A security-focused MCP server for the Wisp game panel Client API. Works with compatible Wisp hosts such as VeryCloud and with game servers including Rust, Minecraft, and others managed by Wisp.",
+  "author": {
+    "name": "BreezeDelegate",
+    "url": "https://github.com/BreezeDelegate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BreezeDelegate/wisp-mcp.git"
+  },
+  "server": {
+    "type": "uv",
+    "entry_point": "mcpb_entry.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "${__dirname}",
+        "mcpb_entry.py"
+      ],
+      "env": {
+        "WISP_PANEL_URL": "${user_config.panel_url}",
+        "WISP_API_TOKEN": "${user_config.api_token}",
+        "WISP_SERVER_ID": "${user_config.server_id}",
+        "WISP_ALLOW_COMMANDS": "${user_config.allow_commands}",
+        "WISP_ALLOW_FILE_WRITES": "${user_config.allow_file_writes}",
+        "WISP_ALLOW_POWER": "${user_config.allow_power}",
+        "WISP_ALLOW_BACKUPS": "${user_config.allow_backups}",
+        "WISP_ALLOW_DATABASES": "${user_config.allow_databases}",
+        "WISP_ALLOW_SERVER_SETTINGS": "${user_config.allow_server_settings}",
+        "WISP_ALLOW_DESTRUCTIVE": "${user_config.allow_destructive}"
+      }
+    }
+  },
+  "keywords": [
+    "wisp",
+    "wisp-panel",
+    "mcp",
+    "model-context-protocol",
+    "game-server",
+    "verycloud",
+    "rust",
+    "minecraft",
+    "server-management"
+  ],
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "python": ">=3.11,<4"
+    }
+  },
+  "user_config": {
+    "panel_url": {
+      "type": "string",
+      "title": "Wisp panel URL",
+      "description": "Base URL of your Wisp panel, for example https://panel.verycloud.fr",
+      "required": true
+    },
+    "api_token": {
+      "type": "string",
+      "title": "Wisp Client API token",
+      "description": "Client API token created in your Wisp account",
+      "sensitive": true,
+      "required": true
+    },
+    "server_id": {
+      "type": "string",
+      "title": "Default server ID",
+      "description": "Optional short Wisp server ID. Leave empty to select a server per tool call.",
+      "default": "",
+      "required": false
+    },
+    "allow_commands": {
+      "type": "boolean",
+      "title": "Allow console commands",
+      "default": false,
+      "description": "Allow sending console commands to Wisp game servers."
+    },
+    "allow_file_writes": {
+      "type": "boolean",
+      "title": "Allow file changes",
+      "default": false,
+      "description": "Allow creating, editing, renaming, compressing and changing server files."
+    },
+    "allow_power": {
+      "type": "boolean",
+      "title": "Allow power control",
+      "default": false,
+      "description": "Allow start, stop and restart power operations."
+    },
+    "allow_backups": {
+      "type": "boolean",
+      "title": "Allow backup changes",
+      "default": false,
+      "description": "Allow creating and changing backups. Destructive backup actions still require the destructive switch."
+    },
+    "allow_databases": {
+      "type": "boolean",
+      "title": "Allow database changes",
+      "default": false,
+      "description": "Allow database creation and credential operations."
+    },
+    "allow_server_settings": {
+      "type": "boolean",
+      "title": "Allow server settings changes",
+      "default": false,
+      "description": "Allow supported Wisp server and monitoring setting changes."
+    },
+    "allow_destructive": {
+      "type": "boolean",
+      "title": "Allow destructive operations",
+      "description": "Keep disabled unless you explicitly need delete, restore, password rotation, force-kill, or similar operations.",
+      "default": false
+    }
+  }
+}

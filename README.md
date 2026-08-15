@@ -1,30 +1,61 @@
-# Wisp MCP
+# Wisp MCP — game server management for Wisp Panel
 
-Wisp MCP exposes the Wisp game panel Client API through Model Context Protocol.
+Wisp MCP is an open-source Model Context Protocol (MCP) server for the **Wisp game panel Client API**. It lets MCP-compatible clients inspect and manage Wisp-hosted game servers: status, files, console commands, power, backups, databases, audit logs, and common panel operations.
 
-It is designed for day-to-day server administration: inspect status and logs, edit files, send console commands, control power, manage backups, and handle common database or panel operations without giving the MCP process unrestricted host access.
+It is provider-agnostic. If your game host exposes the standard Wisp Client API, the same MCP can work with it. **VeryCloud** is documented as a tested provider example.
+
+[![CI](https://github.com/BreezeDelegate/wisp-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/BreezeDelegate/wisp-mcp/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/BreezeDelegate/wisp-mcp)](https://github.com/BreezeDelegate/wisp-mcp/releases/latest)
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/)
+
+## What Wisp MCP can do
+
+- list Wisp servers and inspect live CPU, memory, disk, network, and state;
+- browse and read server files and log tails;
+- edit, create, rename, compress, decompress, and delete files when explicitly enabled;
+- send console commands and control server power;
+- create, list, lock, download, restore, and delete backups;
+- list and manage panel databases;
+- inspect audit logs and common Wisp monitoring/support state;
+- run locally over stdio or remotely over Streamable HTTP;
+- keep changing and destructive operations disabled by default.
+
+Because Wisp MCP targets the panel rather than a particular game, it can be used with **Rust, Minecraft, and other game servers hosted through Wisp**.
+
+## Supported panels and hosts
+
+### Wisp Panel
+
+Any compatible Wisp installation can be configured with its panel URL and a Wisp Client API token:
+
+```env
+WISP_PANEL_URL=https://panel.example.com
+WISP_API_TOKEN=your_token
+```
+
+### VeryCloud
+
+VeryCloud game servers use Wisp. Use:
+
+```env
+WISP_PANEL_URL=https://panel.verycloud.fr
+```
+
+Then create a Client API token from your Wisp account. See [VeryCloud setup](docs/verycloud.md).
 
 ## Start here
 
-If you want an assistant to guide the entire setup, copy the ready-made prompt in [docs/ai-guided-setup.md](docs/ai-guided-setup.md). It is written for people who do not want to learn server administration first.
+### One-line Linux VPS install
 
-Copy this into your assistant:
-
-```text
-Help me install Wisp MCP from https://github.com/BreezeDelegate/wisp-mcp and connect it to my AI client. Read the current repository docs first and reply in my language. Guide me one step at a time and do as much of the technical work as possible. Never ask me to paste API tokens, passwords, private keys, or tunnel runtime keys into chat; tell me where to enter secrets directly in the terminal or provider UI. If I need an always-on machine, help me choose the smallest sensible Linux VPS for my real workload and do not oversell hardware. For ChatGPT/OpenAI on Debian 12 or Ubuntu 24.04+, prefer the repository one-line VPS installer with --with-openai and OpenAI Secure MCP Tunnel. Verify Wisp with doctor, verify the tunnel is ready, then guide me through only the unavoidable ChatGPT/OpenAI account steps. Start read-only; if I want management, enable only the capabilities I need and keep destructive operations disabled unless I explicitly request them. For later server changes, inspect first, back up risky files, make the smallest change, test it, check logs, and never claim success without verification.
-```
-
-The longer version in [docs/ai-guided-setup.md](docs/ai-guided-setup.md) includes the full decision path.
-
-For a fresh Debian 12 or Ubuntu 24.04+ VPS using ChatGPT/OpenAI, the server-side install is one line:
+For Debian 12 or Ubuntu 24.04+:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/BreezeDelegate/wisp-mcp/main/install-vps.sh | sudo bash -s -- --with-openai
 ```
 
-It installs Wisp MCP, verifies the Wisp API, and installs the official OpenAI tunnel client. Credentials are entered directly in the terminal and are not passed on the command line. The MCP remains private. See [docs/chatgpt.md](docs/chatgpt.md).
+The installer creates a dedicated service account, stores Wisp credentials outside the repository, verifies the Wisp API, and can install the official OpenAI secure tunnel client. Credentials are entered directly in the terminal and are not passed on the command line.
 
-## Quick start
+### Local quick start
 
 Requirements: Python 3.11 or newer and a Wisp Client API token.
 
@@ -33,8 +64,6 @@ git clone https://github.com/BreezeDelegate/wisp-mcp.git
 cd wisp-mcp
 ./setup.sh
 ```
-
-The setup script creates an isolated virtual environment and runs the configuration wizard. It starts in read-only mode.
 
 For an existing Python environment:
 
@@ -45,17 +74,29 @@ wisp-mcp doctor
 wisp-mcp
 ```
 
-`wisp-mcp` uses stdio by default, which fits local MCP clients. `wisp-mcp serve` exposes Streamable HTTP for remote deployments.
+`wisp-mcp` uses stdio by default. `wisp-mcp serve` exposes Streamable HTTP for remote deployments.
+
+### MCP Bundle
+
+Releases from v1.2.0 also include a `.mcpb` bundle for MCP clients that support the MCP Bundle format. The bundle collects the panel URL, API token, optional default server ID, and capability switches through the client UI instead of requiring manual environment-file editing.
+
+## AI-guided setup
+
+If you want an assistant to guide the entire setup, copy this prompt:
+
+```text
+Help me install Wisp MCP from https://github.com/BreezeDelegate/wisp-mcp and connect it to my MCP client. Read the current repository docs first and reply in my language. Guide me one step at a time and do as much of the technical work as possible. Never ask me to paste API tokens, passwords, private keys, or tunnel runtime keys into chat; tell me where to enter secrets directly in the terminal or provider UI. If I need an always-on machine, help me choose the smallest sensible Linux VPS for my real workload and do not oversell hardware. Verify Wisp with doctor before continuing. Start read-only; if I want management, enable only the capabilities I need and keep destructive operations disabled unless I explicitly request them. For later server changes, inspect first, back up risky files, make the smallest change, test it, check logs, and never claim success without verification.
+```
+
+See the longer [AI-guided setup](docs/ai-guided-setup.md), [VPS sizing](docs/vps.md), and [operations guide](docs/operations.md).
 
 ## Configuration
 
-The default configuration file is:
+The default local configuration file is:
 
 ```text
 ~/.config/wisp-mcp/config.env
 ```
-
-You can use another file with `WISP_CONFIG_FILE`, or provide environment variables directly.
 
 Required values:
 
@@ -66,7 +107,7 @@ WISP_API_TOKEN=your_token
 
 `WISP_SERVER_ID` is optional. When set, tools can omit `server_id`.
 
-Changing operations are disabled by default. Enable only what you need:
+Changing operations are opt-in:
 
 ```env
 WISP_ALLOW_COMMANDS=true
@@ -78,17 +119,7 @@ WISP_ALLOW_SERVER_SETTINGS=false
 WISP_ALLOW_DESTRUCTIVE=false
 ```
 
-Destructive access is a separate switch. Deleting files or backups, restoring backups, rotating database passwords, deleting databases, force-killing a server, and running panel update actions require it.
-
-## Tools
-
-Read-only tools cover servers, resources, audit logs, directories, files, log tails, backups, and databases.
-
-Optional write tools cover file changes, console commands, power control, backups, databases, monitoring/support toggles, and Wisp update actions.
-
-The server publishes operating instructions to MCP clients: inspect first, back up before risky changes, make the smallest change, and verify status and logs afterward.
-
-See [docs/getting-started.md](docs/getting-started.md) for a local setup, [docs/ai-guided-setup.md](docs/ai-guided-setup.md) for assisted onboarding, [docs/vps.md](docs/vps.md) for VPS sizing, and [docs/operations.md](docs/operations.md) for deployment and safety details.
+Keep `WISP_ALLOW_DESTRUCTIVE=false` for normal administration. Deleting files or backups, restoring backups, rotating database passwords, deleting databases, force-killing a server, and running panel update actions require the separate destructive gate.
 
 ## Remote HTTP
 
@@ -108,7 +139,7 @@ Run:
 wisp-mcp serve
 ```
 
-The MCP endpoint is `/mcp`. Health is available at `/health`.
+The MCP endpoint is `/mcp`; health is `/health`.
 
 ## Docker
 
@@ -118,24 +149,43 @@ cp .env.example .env
 docker compose up -d --build
 ```
 
-The example compose file publishes the service on localhost only.
+The example compose publishes the service on localhost only.
 
-## VeryCloud
-
-VeryCloud uses Wisp. Set:
-
-```env
-WISP_PANEL_URL=https://panel.verycloud.fr
-```
-
-Then use a Client API token from your Wisp account. See [docs/verycloud.md](docs/verycloud.md).
-
-## Security
+## Security model
 
 API and MCP tokens are never returned by tools. Remote HTTP fails closed unless authentication is configured. File paths and object IDs are validated, write size is limited, and server-changing capabilities are opt-in.
 
+The MCP server publishes operating instructions to clients: inspect first, back up before risky changes, make the smallest change, and verify status and logs afterward.
+
 Report security issues privately as described in [SECURITY.md](SECURITY.md).
+
+## Documentation
+
+- [Getting started](docs/getting-started.md)
+- [VeryCloud Wisp MCP setup](docs/verycloud.md)
+- [VPS sizing](docs/vps.md)
+- [Operations and security](docs/operations.md)
+- [ChatGPT / OpenAI tunnel](docs/chatgpt.md)
+- [AI-guided setup](docs/ai-guided-setup.md)
+
+## FAQ
+
+### Is this a Wisp Panel MCP server?
+
+Yes. Wisp MCP exposes the Wisp Client API as Model Context Protocol tools.
+
+### Does it work with VeryCloud?
+
+Yes. VeryCloud is a documented Wisp provider. Configure `https://panel.verycloud.fr` and a Wisp Client API token.
+
+### Is it tied to Rust or Minecraft?
+
+No. It manages the Wisp server container through the panel API, so the same integration can be used for Rust, Minecraft, and other games hosted in Wisp.
+
+### Can it modify my game server?
+
+Only when you enable the relevant capability. Read-only access is the default and destructive operations have a separate switch.
 
 ## License
 
-MIT
+Wisp MCP is distributed under the [PolyForm Noncommercial License 1.0.0](LICENSE). Commercial licensing requires separate permission from the copyright holder.
