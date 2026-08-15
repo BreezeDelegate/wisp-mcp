@@ -1,0 +1,1 @@
+document.querySelectorAll('[data-copy]').forEach(function(button){button.addEventListener('click',function(){navigator.clipboard.writeText(button.dataset.copy).then(function(){var old=button.textContent;button.textContent=button.dataset.copied||'Copied';setTimeout(function(){button.textContent=old},1200)})})});
