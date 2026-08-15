@@ -47,3 +47,12 @@ pytest
 ```
 
 After updating, run the same checks and verify the MCP client can list servers and read status.
+
+
+## Large files and concurrent edits
+
+Use `find_in_file` first when you know a symbol, setting, or error string. Use `read_file_chunk` only for the surrounding region you actually need. This keeps tool output bounded even for very large plugins and logs.
+
+When editing an existing file, prefer `replace_in_file` for a focused change. It checks the SHA-256 fingerprint from the prior read before writing and verifies the resulting file afterward. Use `safe_write_file` when replacing the complete file is intentional. If the hash changed, re-read the file instead of forcing the write.
+
+`write_file` remains available for creating a new file or for an intentional unguarded overwrite.

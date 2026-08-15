@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- add paginated server, directory, backup, and database listings
+- add bounded `read_file_chunk`, literal `find_in_file`, and `file_fingerprint` tools for large files
+- add SHA-256 guarded `safe_write_file` and targeted `replace_in_file` with post-write verification
+- include SHA-256 and continuation metadata in regular text-file reads
+
 ## 1.3.0 - 2026-08-15
 
 - add a read-only live WISP API compatibility probe that detects route or response-shape breakage
