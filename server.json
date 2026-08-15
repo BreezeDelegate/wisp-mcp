@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.BreezeDelegate/wisp-mcp",
+  "title": "Wisp MCP",
+  "description": "Wisp Panel MCP server for secure game server management through the Wisp Client API.",
+  "version": "1.2.0",
+  "repository": {
+    "url": "https://github.com/BreezeDelegate/wisp-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/BreezeDelegate/wisp-mcp/releases/download/v1.2.0/wisp-mcp-1.2.0.mcpb",
+      "version": "1.2.0",
+      "fileSha256": "5a7bcfb408dd8db948d311d818f206cc418382db70e616d42f3f26b0475b27c0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

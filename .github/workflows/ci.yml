@@ -22,5 +22,7 @@ jobs:
       - run: ruff check .
       - run: ruff format --check .
       - run: bash -n setup.sh install-vps.sh scripts/wisp-mcp-openai-setup
+      - run: npx -y @anthropic-ai/mcpb@2.1.2 validate manifest.json
+      - run: python -m json.tool server.json >/dev/null
       - run: pytest
       - run: python -m build

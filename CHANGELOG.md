@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0 - 2026-08-15
+
+- add MCP Bundle distribution for one-click compatible clients
+- add automated publication to the official MCP Registry with GitHub OIDC
+- add an indexable GitHub Pages landing page, sitemap, and repository discovery metadata
+- improve Wisp Panel, VeryCloud, game-server, Rust, and Minecraft discovery terms without changing the generic Wisp API design
+- clarify the PolyForm Noncommercial license in the README
+
 ## 1.1.2 - 2026-08-15
 
 - fix Linux VPS installer permissions so the dedicated `wisp-mcp` service account can execute the installed virtual environment
