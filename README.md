@@ -1,5 +1,7 @@
 # Wisp MCP — connect a WISP game panel to AI
 
+**English · [Français](README.fr.md)**
+
 Wisp MCP is a source-available Model Context Protocol server for the **WISP game panel Client API**. It lets MCP-compatible AI clients inspect and manage game servers through the panel instead of giving the AI unrestricted access to the host machine.
 
 It is **hosting-provider agnostic**. If your hosting company gives you a WISP panel and a Client API token, use that panel URL. No provider-specific code path is required.

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- add a maintained French README and a `/fr/` beginner guide with shared visual assets
+- add reciprocal `hreflang` metadata and a bilingual sitemap for the GitHub Pages site
+
 - test the supported Python range on 3.11 and 3.14 in CI
 - add Mypy and Bandit to blocking CI quality checks
 - add a weekly dependency vulnerability audit with `pip-audit`
