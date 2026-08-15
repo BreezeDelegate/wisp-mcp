@@ -36,7 +36,7 @@ A successful check confirms the token can list servers and, when configured, rea
 
 ## 4. Connect an MCP client
 
-For local clients, use the `wisp-mcp` executable with the `stdio` argument or no argument.
+Choose your client path in [clients.md](clients.md). For local clients, use the `wisp-mcp` executable with the `stdio` argument or no argument.
 
 Generic configuration shape:
 

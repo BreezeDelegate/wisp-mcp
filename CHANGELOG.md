@@ -5,7 +5,7 @@
 - add MCP Bundle distribution for one-click compatible clients
 - add automated publication to the official MCP Registry with GitHub OIDC
 - add an indexable GitHub Pages landing page, sitemap, and repository discovery metadata
-- improve Wisp Panel, VeryCloud, game-server, Rust, and Minecraft discovery terms without changing the generic Wisp API design
+- improve WISP Panel, game-server, Rust, and Minecraft discovery terms without tying the project to a hosting provider
 - clarify the PolyForm Noncommercial license in the README
 
 ## 1.1.2 - 2026-08-15
