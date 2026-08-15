@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1 - 2026-08-15
+
+- clarify that large-file context optimization is adaptive and must never trade correctness for token savings
+
 ## 1.4.0 - 2026-08-15
 
 - add a maintained French README and a `/fr/` beginner guide with shared visual assets

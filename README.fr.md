@@ -108,6 +108,8 @@ Pour une administration normale, conserve `WISP_ALLOW_DESTRUCTIVE=false`.
 
 ## Gros fichiers et modifications sûres
 
+L optimisation du contexte est adaptative : elle ne doit jamais reduire la comprehension necessaire a une modification fiable. Si le changement depend d un etat global, de hooks eloignes, de classes partagees, du flux de controle ou d interactions dans l ensemble du fichier, une lecture complete est preferable meme si elle consomme davantage de tokens.
+
 Pour un gros plugin, évite `read_file` sur tout le fichier quand ce n’est pas nécessaire :
 
 - `find_in_file` localise une chaîne et renvoie seulement quelques lignes autour ;

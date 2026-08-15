@@ -56,3 +56,7 @@ Use `find_in_file` first when you know a symbol, setting, or error string. Use `
 When editing an existing file, prefer `replace_in_file` for a focused change. It checks the SHA-256 fingerprint from the prior read before writing and verifies the resulting file afterward. Use `safe_write_file` when replacing the complete file is intentional. If the hash changed, re-read the file instead of forcing the write.
 
 `write_file` remains available for creating a new file or for an intentional unguarded overwrite.
+
+## Context quality policy
+
+Context optimization is adaptive, not absolute. Use search and bounded reads to locate relevant code, then widen the read when correctness depends on global state, distant hooks, shared classes, control flow, or cross-file behavior. A full-file read is preferable to a token-saving shortcut when the shortcut increases regression risk.
