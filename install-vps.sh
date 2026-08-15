@@ -86,6 +86,8 @@ rm -rf /opt/wisp-mcp/venv
 python3 -m venv /opt/wisp-mcp/venv
 /opt/wisp-mcp/venv/bin/python -m pip install -q --upgrade pip
 /opt/wisp-mcp/venv/bin/python -m pip install -q "$source_dir"
+chown -R root:wisp-mcp /opt/wisp-mcp/venv
+chmod -R g+rX /opt/wisp-mcp/venv
 
 install -d -m 0750 -o root -g wisp-mcp /etc/wisp-mcp
 read -r -p "Wisp panel URL (for example https://panel.verycloud.fr): " panel </dev/tty
