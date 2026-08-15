@@ -1,6 +1,6 @@
 [project]
 name = "wisp-mcp"
-version = "1.2.0"
+version = "1.2.1"
 description = "Wisp Panel MCP server for secure game server management through the Wisp Client API"
 readme = "README.md"
 requires-python = ">=3.11"

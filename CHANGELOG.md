@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.1 - 2026-08-15
+
+- make all public positioning and install examples hosting-provider agnostic
+- add visual WISP panel recognition and beginner-focused GitHub Pages onboarding
+- document ChatGPT, Claude Code, stdio, Streamable HTTP, and MCP Bundle client paths
+- correct source-available terminology for the PolyForm Noncommercial license
+
 ## 1.2.0 - 2026-08-15
 
 - add MCP Bundle distribution for one-click compatible clients
