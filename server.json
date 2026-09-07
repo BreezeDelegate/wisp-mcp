@@ -3,7 +3,7 @@
   "name": "io.github.BreezeDelegate/wisp-mcp",
   "title": "Wisp MCP",
   "description": "Wisp Panel MCP server for secure game server management through the Wisp Client API.",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "repository": {
     "url": "https://github.com/BreezeDelegate/wisp-mcp",
     "source": "github"

@@ -10,7 +10,7 @@ Le projet est **indépendant de l’hébergeur** : si ton hébergeur fournit un 
 [![Release](https://img.shields.io/github/v/release/BreezeDelegate/wisp-mcp)](https://github.com/BreezeDelegate/wisp-mcp/releases/latest)
 [![MCP Registry](https://img.shields.io/badge/MCP_Registry-active-2ea44f)](https://registry.modelcontextprotocol.io/?q=io.github.BreezeDelegate%2Fwisp-mcp)
 
-**Guide visuel en français :** https://breezedelegate.github.io/wisp-mcp/fr/
+**Guide visuel en français :** https://wisp.hinoake.com/
 
 ## Est-ce que mon panel est WISP ?
 

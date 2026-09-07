@@ -11,7 +11,7 @@ It is **hosting-provider agnostic**. If your hosting company gives you a WISP pa
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/)
 [![MCP Registry](https://img.shields.io/badge/MCP_Registry-active-2ea44f)](https://registry.modelcontextprotocol.io/?q=io.github.BreezeDelegate%2Fwisp-mcp)
 
-**Start with the visual guide:** https://breezedelegate.github.io/wisp-mcp/
+**Start with the visual guide:** https://wisp.hinoake.com/en/
 
 ## Do I have a WISP panel?
 
@@ -192,7 +192,7 @@ Report security issues privately as described in [SECURITY.md](SECURITY.md).
 
 ## Documentation
 
-- [Visual beginner guide](https://breezedelegate.github.io/wisp-mcp/)
+- [Visual beginner guide](https://wisp.hinoake.com/en/)
 - [Getting started](docs/getting-started.md)
 - [How to recognize a WISP panel](docs/panel-recognition.md)
 - [Connect ChatGPT, Claude Code and other MCP clients](docs/clients.md)

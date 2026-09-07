@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.0 - 2026-09-07
+
+- replace the GitHub Pages landing page with a guided, bilingual public onboarding for ChatGPT and WISP
+- add a privacy-preserving local readiness checklist and explicit least-privilege setup flow
+- add a hardened static-site container deployment for `wisp.hinoake.com` with rollback support
+- move canonical documentation and discovery URLs to `https://wisp.hinoake.com/`
+
 ## 1.4.1 - 2026-08-15
 
 - clarify that large-file context optimization is adaptive and must never trade correctness for token savings

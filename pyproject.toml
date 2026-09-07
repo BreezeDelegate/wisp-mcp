@@ -1,6 +1,6 @@
 [project]
 name = "wisp-mcp"
-version = "1.4.1"
+version = "1.5.0"
 description = "Wisp Panel MCP server for secure game server management through the Wisp Client API"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -46,7 +46,7 @@ wisp-mcp = "wisp_mcp.cli:main"
 Homepage = "https://github.com/BreezeDelegate/wisp-mcp"
 Repository = "https://github.com/BreezeDelegate/wisp-mcp"
 Issues = "https://github.com/BreezeDelegate/wisp-mcp/issues"
-Documentation = "https://breezedelegate.github.io/wisp-mcp/"
+Documentation = "https://wisp.hinoake.com/"
 Changelog = "https://github.com/BreezeDelegate/wisp-mcp/blob/main/CHANGELOG.md"
 
 [build-system]
