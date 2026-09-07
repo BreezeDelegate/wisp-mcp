@@ -1,9 +1,16 @@
+from hashlib import sha256
 from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 PAGES = [DOCS / "index.html", DOCS / "en/index.html"]
+CSS_PATH = DOCS / "assets/site.css"
+JS_PATH = DOCS / "assets/site.js"
+CSS_VERSION = sha256(CSS_PATH.read_bytes()).hexdigest()[:12]
+JS_VERSION = sha256(JS_PATH.read_bytes()).hexdigest()[:12]
+CSS_URL = f"/assets/site.css?v={CSS_VERSION}"
+JS_URL = f"/assets/site.js?v={JS_VERSION}"
 REQUIRED_ASSETS = [
     "assets/site.css",
     "assets/site.js",
@@ -28,6 +35,8 @@ class Audit(HTMLParser):
         self.ids: set[str] = set()
         self.hrefs: list[str] = []
         self.imgs: list[tuple[str | None, bool]] = []
+        self.stylesheets: list[str] = []
+        self.scripts: list[str] = []
         self.lang: str | None = None
         self.viewport = False
         self.onboarding_steps = 0
@@ -43,6 +52,10 @@ class Audit(HTMLParser):
             self.viewport = True
         if tag == "a" and data.get("href"):
             self.hrefs.append(data["href"] or "")
+        if tag == "link" and data.get("rel") == "stylesheet" and data.get("href"):
+            self.stylesheets.append(data["href"] or "")
+        if tag == "script" and data.get("src"):
+            self.scripts.append(data["src"] or "")
         if tag == "img":
             self.imgs.append((data.get("src"), "alt" in data))
         if tag == "main":
@@ -68,6 +81,8 @@ for page in PAGES:
     assert audit.section_count == 0, (page, audit.section_count)
     assert audit.onboarding_roots == 1, (page, audit.onboarding_roots)
     assert audit.onboarding_steps == 8, (page, audit.onboarding_steps)
+    assert audit.stylesheets == [CSS_URL], (page, audit.stylesheets, CSS_URL)
+    assert audit.scripts == [JS_URL], (page, audit.scripts, JS_URL)
     assert "https://wisp.hinoake.com" in text
     assert "breezedelegate.github.io/wisp-mcp" not in text
     assert "GPT-5.6 Sol" in text
@@ -78,6 +93,7 @@ for page in PAGES:
     assert 'data-copy-id="skill-memory"' in text
     assert 'data-copy-id="skill-wisp"' in text
     assert 'data-copy-id="skill-release"' in text
+    assert "#welcome" not in text and "#bienvenue" not in text
 
     for marker in BANNED_LEGACY_MARKERS:
         assert marker not in text, (page, marker)
@@ -90,14 +106,19 @@ for page in PAGES:
 for asset in REQUIRED_ASSETS:
     assert (DOCS / asset).is_file(), asset
 
-css = (DOCS / "assets/site.css").read_text(encoding="utf-8")
+not_found = (DOCS / "404.html").read_text(encoding="utf-8")
+assert CSS_URL in not_found
+assert "#welcome" not in not_found and "#bienvenue" not in not_found
+assert "/#chatgpt" in not_found
+
+css = CSS_PATH.read_text(encoding="utf-8")
 for marker in [".hero", ".section-head", ".trustline", ".choice-band", ".panel-proof", ".faq"]:
     assert marker not in css, marker
 assert "@media (max-width:760px)" in css
 assert "min-width:320px" in css
 assert "44px" in css
 
-js = (DOCS / "assets/site.js").read_text(encoding="utf-8")
+js = JS_PATH.read_text(encoding="utf-8")
 assert "localStorage" in js
 assert "history.replaceState" in js
 assert "fetch(" not in js
@@ -108,5 +129,11 @@ assert "default-src 'self'" in nginx
 assert "script-src 'self'" in nginx
 assert "style-src 'self'" in nginx
 assert "connect-src 'none'" in nginx
+assert "expires 1y;" in nginx
+assert nginx.count("expires -1;") >= 2
+assert "location ~* [.](?:css|js|webp)$" in nginx
 
-print("SITE_STATIC_QA_OK onboarding=clean-slate pages=2 steps=8")
+print(
+    "SITE_STATIC_QA_OK "
+    f"onboarding=clean-slate pages=2 steps=8 css={CSS_VERSION} js={JS_VERSION} cache=versioned"
+)

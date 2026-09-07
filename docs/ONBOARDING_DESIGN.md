@@ -59,4 +59,5 @@ Desktop uses a persistent setup rail and one focused stage. Mobile replaces the 
 - 200% zoom remains functional;
 - keyboard can complete the full flow;
 - CSP permits only self-hosted script/style/assets and no network requests from onboarding JavaScript;
+- HTML references CSS and JS with content-hash query keys; static QA rejects stale fingerprints and Nginx forces HTML revalidation;
 - production promotion requires static checks, browser inspection, public smoke and rollback evidence.
