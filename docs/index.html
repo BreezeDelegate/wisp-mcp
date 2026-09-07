@@ -1,24 +1,179 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wisp MCP — connecter ChatGPT à votre serveur WISP</title><meta name="description" content="Onboarding guidé Wisp MCP : préparez ChatGPT, connectez votre panel WISP et donnez à l’IA uniquement les permissions dont elle a besoin."><link rel="canonical" href="https://wisp.hinoake.com/"><link rel="alternate" hreflang="fr" href="https://wisp.hinoake.com/"><link rel="alternate" hreflang="en" href="https://wisp.hinoake.com/en/"><link rel="alternate" hreflang="x-default" href="https://wisp.hinoake.com/"><meta property="og:title" content="Wisp MCP — votre serveur WISP, pilotable avec ChatGPT"><meta property="og:description" content="Un parcours guidé et prudent du panel WISP à un client MCP."><meta property="og:type" content="website"><meta property="og:url" content="https://wisp.hinoake.com/"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"><link rel="stylesheet" href="/assets/site.css"></head><body>
-<a class="skip-link" href="#main">Aller au contenu</a><header class="topbar"><div class="shell nav"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">W</span><span>Wisp MCP</span></a><div class="nav-group"><a class="nav-link desktop" href="#parcours">Parcours</a><a class="nav-link desktop" href="#securite">Sécurité</a><a class="lang" href="/en/" lang="en"><img src="/assets/flag-gb.webp" alt="">English</a><a class="nav-link desktop" href="https://github.com/BreezeDelegate/wisp-mcp">GitHub</a><a class="nav-cta" href="#preparer">Configurer</a></div></div></header>
-<main id="main"><section class="hero shell"><div><div class="product-label">WISP + Model Context Protocol</div><h1>Donnez à ChatGPT les bons outils. Pas les clés de tout le serveur.</h1><p class="hero-lede">Wisp MCP relie votre panel WISP à ChatGPT ou à un autre client MCP. L’IA peut lire les logs, modifier une configuration, déployer un plugin, redémarrer un serveur ou créer une sauvegarde — uniquement avec les droits que vous activez.</p><div class="hero-actions"><a class="button" href="#preparer">Configurer mon accès</a><a class="button secondary" href="https://github.com/BreezeDelegate/wisp-mcp">Voir le projet</a></div><p class="microcopy">Pas besoin de connaître MCP ou Linux pour suivre ce parcours. Les secrets restent saisis dans votre terminal ou l’interface concernée, jamais dans cette page.</p></div><aside class="rail" aria-label="Chemin de connexion"><div class="rail-head"><strong>Votre chemin</strong><span>4 frontières claires</span></div><div class="route"><div class="route-row"><div class="route-dot">1</div><div><strong>Votre panel WISP</strong><p>API Client et permissions du serveur de jeu.</p></div></div><div class="route-row"><div class="route-dot">2</div><div><strong>Wisp MCP</strong><p>Traduit les outils MCP vers l’API WISP.</p></div></div><div class="route-row"><div class="route-dot">3</div><div><strong>Tunnel privé</strong><p>Connexion sortante pour ChatGPT, sans port MCP public.</p></div></div><div class="route-row"><div class="route-dot">4</div><div><strong>Votre IA</strong><p>Utilise uniquement les outils autorisés.</p></div></div></div></aside></section>
-<div class="trustline"><div class="shell trustline-inner"><span><strong>Lecture seule</strong> par défaut</span><span><strong>Destructif</strong> séparé</span><span><strong>Hébergeur</strong> indépendant</span><span><strong>Rust, Minecraft</strong> et autres jeux WISP</span></div></div>
-<section id="preparer"><div class="shell"><div class="section-head"><div><div class="section-label">Avant l’installation</div><h2>Préparez quatre choses. Rien de plus.</h2></div><p>Cette checklist reste dans votre navigateur. Le site ne peut pas inspecter votre compte ChatGPT, GitHub ou WISP et ne prétend donc pas les « vérifier » à votre place.</p></div><div class="setup-layout"><aside class="setup-aside"><h3>Préparation</h3><p>Cochez ce qui est prêt. Vous pouvez revenir plus tard : l’avancement reste enregistré sur cet appareil.</p><div class="progress"><div class="progress-line" aria-hidden="true"><div class="progress-fill" data-progress-fill></div></div><div class="progress-meta"><span>Prêt</span><span data-progress-label>0 / 4</span></div></div><p class="privacy-note">Aucun token, mot de passe ou identifiant n’est demandé ici.</p></aside><div class="checklist">
-<div class="check" data-check-row="chatgpt"><div class="check-index">01</div><div><h3>Un compte ChatGPT avec accès MCP</h3><p>Utilisez le modèle le plus capable disponible. <strong>GPT-5.6 Sol</strong> est recommandé lorsqu’il est proposé ; sinon choisissez le meilleur modèle accessible sur votre offre. Pour un usage d’équipe ou intensif, une offre Business est recommandée.</p></div><button class="check-action" type="button" data-check-toggle data-todo="Marquer comme prêt" data-done="Prêt" aria-pressed="false">Marquer comme prêt</button></div>
-<div class="check" data-check-row="github"><div class="check-index">02</div><div><h3>GitHub, seulement si vous travaillez avec des dépôts</h3><p>Connectez GitHub à ChatGPT si vous voulez que l’IA lise vos dépôts privés, garde une roadmap et documente vos règles. Wisp MCP lui-même fonctionne sans GitHub.</p></div><button class="check-action" type="button" data-check-toggle data-todo="Marquer comme prêt" data-done="Prêt" aria-pressed="false">Marquer comme prêt</button></div>
-<div class="check" data-check-row="wisp"><div class="check-index">03</div><div><h3>L’URL de votre panel WISP et un token Client API</h3><p>Créez le token dans votre compte WISP. Ne le collez jamais dans un chat : l’installateur le demande dans un prompt masqué directement sur le VPS.</p></div><button class="check-action" type="button" data-check-toggle data-todo="Marquer comme prêt" data-done="Prêt" aria-pressed="false">Marquer comme prêt</button></div>
-<div class="check" data-check-row="vps"><div class="check-index">04</div><div><h3>Un petit VPS Linux toujours allumé</h3><p>Debian 12 ou Ubuntu 24.04+ est le chemin recommandé. Si votre MCP tourne déjà ailleurs, vous pouvez conserver votre infrastructure.</p></div><button class="check-action" type="button" data-check-toggle data-todo="Marquer comme prêt" data-done="Prêt" aria-pressed="false">Marquer comme prêt</button></div>
-</div></div></div></section>
-<section id="parcours"><div class="shell"><div class="section-head"><div><div class="section-label">Onboarding guidé</div><h2>De zéro à votre premier diagnostic.</h2></div><p>Le parcours sépare volontairement l’accès WISP, l’installation du MCP et la connexion à l’IA. Une panne dans une couche ne vous oblige pas à refaire les autres.</p></div><div class="journey">
-<article class="journey-step"><div class="journey-number">ÉTAPE 01</div><div><h3>Confirmez que votre hébergeur utilise WISP</h3><p>Les panels WISP peuvent être white-label. Comparez votre interface à la capture plus bas ou demandez au support : « Mon serveur utilise-t-il WISP et puis-je créer un token WISP Client API ? »</p><div class="detail"><strong>Oui ?</strong> Continuez. <strong>Non ?</strong> Wisp MCP n’est pas le bon connecteur pour ce panel.</div></div></article>
-<article class="journey-step"><div class="journey-number">ÉTAPE 02</div><div><h3>Préparez ChatGPT</h3><p>Connectez-vous à ChatGPT et sélectionnez le modèle le plus capable disponible. Si GPT-5.6 Sol apparaît dans votre sélecteur, utilisez-le pour les tâches complexes de code et d’administration.</p><div class="detail">Ce site ne reçoit aucun accès à votre compte OpenAI. La vérification du modèle reste volontairement dans ChatGPT.</div></div></article>
-<article class="journey-step"><div class="journey-number">ÉTAPE 03</div><div><h3>Connectez GitHub si vous voulez une mémoire de projet durable</h3><p>Pour un serveur maintenu dans GitHub, utilisez un dépôt privé et conservez-y au minimum un <code>AGENTS.md</code>, une roadmap et un handoff. L’IA retrouve alors les règles, décisions et prochaines étapes au lieu de deviner.</p><div class="detail"><strong>Frontière :</strong> Git stocke la mémoire du projet ; Wisp MCP fournit l’accès au panel. Ne mettez jamais de token WISP dans Git.</div></div></article>
-<article class="journey-step"><div class="journey-number">ÉTAPE 04</div><div><h3>Installez Wisp MCP et le tunnel ChatGPT</h3><p>Connectez-vous au VPS puis lancez l’installateur. Il crée un utilisateur système dédié, garde les secrets hors Git et exécute un diagnostic avant de terminer.</p><div class="code-wrap"><button class="copy" type="button" data-label="Copier" data-copied="Copié" data-copy="curl -fsSL https://raw.githubusercontent.com/BreezeDelegate/wisp-mcp/main/install-vps.sh | sudo bash -s -- --with-openai">Copier</button><code>curl -fsSL https://raw.githubusercontent.com/BreezeDelegate/wisp-mcp/main/install-vps.sh | sudo bash -s -- --with-openai</code></div></div></article>
-<article class="journey-step"><div class="journey-number">ÉTAPE 05</div><div><h3>Commencez en lecture seule</h3><p>Validez d’abord la connexion sans autoriser de changement. Ensuite, activez uniquement les familles d’actions dont vous avez besoin.</p><div class="code-wrap"><button class="copy" type="button" data-label="Copier" data-copied="Copié" data-copy="wisp-mcp doctor && wisp-mcp compatibility">Copier</button><code>wisp-mcp doctor &amp;&amp; wisp-mcp compatibility</code></div></div></article>
-<article class="journey-step"><div class="journey-number">ÉTAPE 06</div><div><h3>Donnez à l’IA une règle de travail simple</h3><p>Demandez-lui d’inspecter avant de modifier, de sauvegarder avant une opération risquée, de faire le plus petit changement possible puis de relire l’état et les logs.</p><div class="detail"><a class="inline-link" href="https://github.com/BreezeDelegate/wisp-mcp/blob/main/docs/ai-guided-setup.md">Ouvrir le prompt d’onboarding complet</a>.</div></div></article>
-</div></div></section>
-<section class="choice-band"><div class="shell"><div class="section-head"><div><div class="section-label">Deux chemins</div><h2>Vous pouvez déléguer l’installation, pas les secrets.</h2></div><p>Un assistant peut faire la majorité du travail technique. Les tokens et clés restent saisis par vous dans le terminal ou l’interface du fournisseur.</p></div><div class="paths"><article class="path primary"><div class="path-tag">Recommandé</div><h3>Je veux que ChatGPT me guide</h3><p>Le prompt guidé demande à l’IA de vérifier chaque couche, de commencer en lecture seule et de ne jamais réclamer vos secrets dans la conversation.</p><a class="button" href="https://github.com/BreezeDelegate/wisp-mcp/blob/main/docs/ai-guided-setup.md">Ouvrir le prompt guidé</a></article><article class="path secondary"><div class="path-tag">Technique</div><h3>Je préfère installer moi-même</h3><p>Suivez la documentation complète pour l’installation, les transports MCP, ChatGPT et les opérations.</p><a class="button" href="https://github.com/BreezeDelegate/wisp-mcp#documentation">Lire la documentation</a></article></div></div></section>
-<section><div class="shell panel-proof"><div class="proof-copy"><div class="section-label">Reconnaître WISP</div><h3>Votre panel peut avoir un autre logo.</h3><p>WISP est souvent personnalisé par l’hébergeur. Cherchez surtout la structure de l’interface et la possibilité de créer un token Client API. En cas de doute, demandez au support.</p><a class="inline-link" href="https://github.com/BreezeDelegate/wisp-mcp/blob/main/docs/panel-recognition.md">Guide de reconnaissance détaillé</a></div><figure class="shot"><img src="/assets/wisp-client-panel.webp" alt="Exemple d’un tableau de bord client WISP" loading="lazy"><figcaption>Exemple d’interface client WISP. Les couleurs, le logo et le domaine peuvent varier.</figcaption></figure></div></section>
-<section id="securite"><div class="shell"><div class="section-head"><div><div class="section-label">Contrôle des capacités</div><h2>Le serveur MCP décide ce que l’IA a le droit de faire.</h2></div><p>Changer de client IA ne doit pas élargir silencieusement les permissions. Les capacités de mutation sont explicites et le destructif garde un interrupteur séparé.</p></div><div class="capabilities"><div class="capability safe"><h3>Usage normal</h3><ul><li><strong>Lire</strong> état, ressources, logs et fichiers</li><li><strong>Modifier</strong> des fichiers avec vérification SHA-256</li><li><strong>Exécuter</strong> des commandes console si autorisé</li><li><strong>Redémarrer</strong> ou créer une sauvegarde si autorisé</li></ul></div><div class="capability"><h3>Destructif, volontairement séparé</h3><ul><li>Suppression de fichiers ou sauvegardes</li><li>Restauration sur les données live</li><li>Suppression de base ou rotation de credentials</li><li>Force-kill et opérations équivalentes</li></ul></div></div></div></section>
-<section><div class="shell faq"><div><div class="section-label">Questions fréquentes</div><h2>Les points qui bloquent le plus souvent.</h2></div><div class="faq-list"><details><summary>Est-ce lié à un hébergeur précis ?</summary><p>Non. Wisp MCP cible l’API Client WISP. Si votre hébergeur fournit un panel WISP et un token Client API, le même connecteur s’applique.</p></details><details><summary>Dois-je donner un accès SSH complet à ChatGPT ?</summary><p>Non. Le but est justement de limiter l’IA à la surface exposée par WISP et aux capacités MCP activées.</p></details><details><summary>GitHub est-il obligatoire ?</summary><p>Non. GitHub est utile pour conserver code, règles, roadmap et handoff. La connexion WISP fonctionne indépendamment.</p></details><details><summary>Pourquoi ne pas activer toutes les permissions ?</summary><p>Une permission inutile augmente la portée d’une erreur. Commencez en lecture seule, puis ouvrez seulement ce qu’exige la tâche.</p></details></div></div></section>
-<section class="final-cta"><div class="shell final-box"><div><h2>Prêt à connecter votre panel ?</h2><p>Commencez par la checklist, puis laissez les diagnostics confirmer chaque couche.</p></div><a class="button" href="#preparer">Revenir à la préparation</a></div></section></main>
-<footer><div class="shell footer-inner"><span>Wisp MCP · BreezeDelegate · PolyForm Noncommercial 1.0.0</span><div class="footer-links"><a href="https://github.com/BreezeDelegate/wisp-mcp">GitHub</a><a href="https://github.com/BreezeDelegate/wisp-mcp/blob/main/SECURITY.md">Sécurité</a><a href="https://registry.modelcontextprotocol.io/?q=io.github.BreezeDelegate%2Fwisp-mcp">Registre MCP</a></div></div></footer><script src="/assets/site.js" defer></script></body></html>
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Configurer Wisp MCP</title>
+  <meta name="description" content="Onboarding guidé pour connecter ChatGPT à un panel WISP avec Wisp MCP.">
+  <link rel="canonical" href="https://wisp.hinoake.com/">
+  <link rel="alternate" hreflang="fr" href="https://wisp.hinoake.com/">
+  <link rel="alternate" hreflang="en" href="https://wisp.hinoake.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://wisp.hinoake.com/">
+  <meta property="og:title" content="Configurer Wisp MCP">
+  <meta property="og:description" content="Un onboarding guidé, de ChatGPT au premier diagnostic WISP.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wisp.hinoake.com/">
+  <meta name="twitter:card" content="summary">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#setup-main">Aller à l’étape en cours</a>
+<div class="onboarding" data-onboarding>
+  <aside class="rail" aria-label="Progression de la configuration">
+    <div class="brand-row">
+      <a class="brand" href="/#chatgpt"><span class="brand-mark" aria-hidden="true">W</span><span>Wisp MCP</span></a>
+      <a class="locale-link" data-locale-link data-locale-base="/en/" data-locale-steps="chatgpt,github,wisp,vps,installation,connect,memory,done" href="/en/#welcome" lang="en"><img src="/assets/flag-gb.webp" alt="">English</a>
+    </div>
+    <p class="rail-eyebrow">Configuration</p>
+    <p class="rail-title">Une étape à la fois, jusqu’au premier diagnostic.</p>
+    <ol class="step-nav">
+      <li><button type="button" data-step-nav="0"><span class="step-index">01</span><span class="step-label">ChatGPT</span><span class="step-state" data-step-state data-current="Ici" data-done="Fait"></span></button></li>
+      <li><button type="button" data-step-nav="1"><span class="step-index">02</span><span class="step-label">GitHub</span><span class="step-state" data-step-state data-current="Ici" data-done="Fait"></span></button></li>
+      <li><button type="button" data-step-nav="2"><span class="step-index">03</span><span class="step-label">Panel WISP</span><span class="step-state" data-step-state data-current="Ici" data-done="Fait"></span></button></li>
+      <li><button type="button" data-step-nav="3"><span class="step-index">04</span><span class="step-label">VPS</span><span class="step-state" data-step-state data-current="Ici" data-done="Fait"></span></button></li>
+      <li><button type="button" data-step-nav="4"><span class="step-index">05</span><span class="step-label">Installation</span><span class="step-state" data-step-state data-current="Ici" data-done="Fait"></span></button></li>
+      <li><button type="button" data-step-nav="5"><span class="step-index">06</span><span class="step-label">Connexion ChatGPT</span><span class="step-state" data-step-state data-current="Ici" data-done="Fait"></span></button></li>
+      <li><button type="button" data-step-nav="6"><span class="step-index">07</span><span class="step-label">Mémoire de projet</span><span class="step-state" data-step-state data-current="Ici" data-done="Fait"></span></button></li>
+      <li><button type="button" data-step-nav="7"><span class="step-index">08</span><span class="step-label">Terminé</span><span class="step-state" data-step-state data-current="Ici" data-done="Fait"></span></button></li>
+    </ol>
+    <div class="rail-bottom">
+      <a href="https://github.com/BreezeDelegate/wisp-mcp">GitHub</a>
+      <a href="https://github.com/BreezeDelegate/wisp-mcp/blob/main/SECURITY.md">Sécurité</a>
+      <span>PolyForm Noncommercial 1.0.0</span>
+    </div>
+  </aside>
+
+  <div class="stage-shell">
+    <div class="mobile-head">
+      <div class="mobile-head-row">
+        <div class="mobile-brand"><span class="brand-mark" aria-hidden="true">W</span><span>Wisp MCP</span></div>
+        <a class="locale-link" data-locale-link data-locale-base="/en/" data-locale-steps="chatgpt,github,wisp,vps,installation,connect,memory,done" href="/en/#welcome" lang="en"><img src="/assets/flag-gb.webp" alt="">English</a>
+      </div>
+      <div class="mobile-progress" aria-hidden="true"><span data-mobile-progress></span></div>
+      <div class="mobile-meta"><span data-mobile-step>1 / 8</span><span data-mobile-label>ChatGPT</span></div>
+    </div>
+
+    <div class="stage-top">
+      <span class="stage-position" data-position>1 / 8 · ChatGPT</span>
+      <button class="stage-reset" type="button" data-restart>Recommencer</button>
+    </div>
+
+    <main class="stage-main" id="setup-main" data-stage-main>
+      <div class="step-panel" data-onboarding-step="chatgpt" data-step-label="ChatGPT" data-require-choice="chatgpt_plan" hidden>
+        <div class="step-meta">Compte IA</div>
+        <h1>Vérifie d’abord ton accès ChatGPT.</h1>
+        <p class="lede">Pour piloter réellement un serveur avec des actions d’écriture, <strong>ChatGPT Business, Enterprise ou Edu</strong> est le chemin recommandé aujourd’hui. Pro peut connecter un MCP en lecture/récupération, mais pas bénéficier du MCP complet.</p>
+        <div class="action-stack" role="group" aria-label="Type d’abonnement ChatGPT">
+          <button class="choice" type="button" data-choice-key="chatgpt_plan" data-choice-value="full" aria-pressed="false"><span class="choice-copy"><strong>Business / Enterprise / Edu</strong><span>Le meilleur choix pour utiliser les actions complètes de Wisp MCP.</span></span><span class="choice-status">MCP complet</span></button>
+          <button class="choice" type="button" data-choice-key="chatgpt_plan" data-choice-value="limited" aria-pressed="false"><span class="choice-copy"><strong>Pro ou autre offre</strong><span>Tu peux continuer, mais certaines actions pourront rester limitées.</span></span><span class="choice-status">Accès limité</span></button>
+          <button class="choice" type="button" data-choice-key="chatgpt_plan" data-choice-value="unknown" aria-pressed="false"><span class="choice-copy"><strong>Je ne sais pas</strong><span>Ouvre ChatGPT et vérifie ton espace avant de continuer.</span></span><span class="choice-status">À vérifier</span></button>
+        </div>
+        <div class="inline-note"><strong>Modèle conseillé :</strong> GPT-5.6 Sol s’il est disponible dans ton espace. Sinon, utilise simplement le modèle le plus capable proposé.</div>
+        <div class="link-row"><a class="text-link" href="https://chatgpt.com/">Ouvrir ChatGPT</a><a class="text-link" href="https://help.openai.com/fr-fr/articles/12584461-developer-mode-and-full-mcp-connectors-in-chatgpt-beta">Voir l’aide officielle MCP</a></div>
+      </div>
+
+      <div class="step-panel" data-onboarding-step="github" data-step-label="GitHub" data-require-check="github_ready" hidden>
+        <div class="step-meta">Mémoire de projet</div>
+        <h2>Connecte GitHub à ChatGPT.</h2>
+        <p class="lede">GitHub va servir de mémoire durable : règles, roadmap, décisions et handoff restent dans un dépôt privé au lieu de dépendre du contexte d’une conversation.</p>
+        <ol class="checklist">
+          <li><span class="bullet">1</span><span>Dans ChatGPT, ouvre <strong>Plugins / Apps</strong> et connecte GitHub.</span></li>
+          <li><span class="bullet">2</span><span>Autorise uniquement les dépôts dont l’IA a réellement besoin.</span></li>
+          <li><span class="bullet">3</span><span>Pour chaque projet, utilise un <strong>dépôt privé</strong> avec règles, roadmap et handoff versionnés.</span></li>
+        </ol>
+        <div class="inline-note warning">Ne mets jamais un token WISP, une clé API ou un mot de passe dans GitHub.</div>
+        <div class="link-row"><a class="text-link" href="https://chatgpt.com/">Ouvrir ChatGPT</a><a class="text-link" href="https://github.com/new">Créer un dépôt privé</a></div>
+        <div class="confirm-row"><input id="github-ready" type="checkbox" data-check-key="github_ready"><label for="github-ready">GitHub est connecté à ChatGPT et mon dépôt de projet est prêt.</label></div>
+      </div>
+
+      <div class="step-panel" data-onboarding-step="wisp" data-step-label="Panel WISP" data-require-check="wisp_ready" hidden>
+        <div class="step-meta">Serveur de jeu</div>
+        <h2>Confirme que ton hébergeur utilise WISP.</h2>
+        <p class="lede">Il te faut seulement deux éléments : <strong>l’URL de ton panel WISP</strong> et un <strong>token Client API</strong>. Le token sera demandé plus tard directement dans le terminal.</p>
+        <div class="inline-note">Les panels WISP peuvent être white-label. Si tu hésites, demande au support : « Mon serveur utilise-t-il WISP et puis-je créer un token WISP Client API ? »</div>
+        <div class="link-row"><a class="text-link" href="https://github.com/BreezeDelegate/wisp-mcp/blob/main/docs/panel-recognition.md">Je ne reconnais pas mon panel</a></div>
+        <div class="confirm-row"><input id="wisp-ready" type="checkbox" data-check-key="wisp_ready"><label for="wisp-ready">J’ai confirmé WISP et je sais où créer mon token Client API.</label></div>
+      </div>
+
+      <div class="step-panel" data-onboarding-step="vps" data-step-label="VPS" data-require-choice="distro" data-require-check="vps_ready" hidden>
+        <div class="step-meta">Machine toujours allumée</div>
+        <h2>Prépare un petit VPS Linux.</h2>
+        <p class="lede">Wisp MCP est léger et peut tourner sur une petite machine. Le serveur de jeu peut rester chez ton hébergeur actuel : le VPS sert uniquement au MCP et au tunnel privé.</p>
+        <div class="action-stack" role="group" aria-label="Système du VPS">
+          <button class="choice" type="button" data-choice-key="distro" data-choice-value="debian" aria-pressed="false"><span class="choice-copy"><strong>Debian 12</strong><span>Chemin recommandé et testé.</span></span><span class="choice-status">Recommandé</span></button>
+          <button class="choice" type="button" data-choice-key="distro" data-choice-value="ubuntu" aria-pressed="false"><span class="choice-copy"><strong>Ubuntu 24.04+</strong><span>Chemin recommandé et testé.</span></span><span class="choice-status">Recommandé</span></button>
+          <button class="choice" type="button" data-choice-key="distro" data-choice-value="other" aria-pressed="false"><span class="choice-copy"><strong>Autre Linux</strong><span>Possible, mais l’installation peut demander des adaptations manuelles.</span></span><span class="choice-status">Avancé</span></button>
+        </div>
+        <div class="confirm-row"><input id="vps-ready" type="checkbox" data-check-key="vps_ready"><label for="vps-ready">Je peux ouvrir une session SSH sur ce VPS avec sudo.</label></div>
+      </div>
+
+      <div class="step-panel" data-onboarding-step="installation" data-step-label="Installation" data-require-check="install_ok" hidden>
+        <div class="step-meta">Terminal</div>
+        <h2>Installe Wisp MCP en une commande.</h2>
+        <p class="lede">L’installateur crée un utilisateur système dédié, installe Wisp MCP et le tunnel OpenAI, puis te demande l’URL du panel et le token <strong>directement dans le terminal</strong>.</p>
+        <div class="command">
+          <div class="command-head"><span>Sur ton VPS</span><button class="copy-button" type="button" data-copy-id="install-command" data-copied="Commande copiée">Copier</button></div>
+          <pre><code id="install-command">curl -fsSL https://raw.githubusercontent.com/BreezeDelegate/wisp-mcp/main/install-vps.sh | sudo bash -s -- --with-openai</code></pre>
+        </div>
+        <ol class="checklist">
+          <li><span class="bullet">1</span><span>Colle la commande et laisse l’installateur terminer.</span></li>
+          <li><span class="bullet">2</span><span>Saisis le token WISP uniquement quand le terminal le demande.</span></li>
+          <li><span class="bullet">3</span><span>Ne continue que lorsque le diagnostic affiche <strong>Wisp API: OK</strong>.</span></li>
+        </ol>
+        <div class="confirm-row"><input id="install-ok" type="checkbox" data-check-key="install_ok"><label for="install-ok">L’installation est terminée et « Wisp API: OK » apparaît.</label></div>
+      </div>
+
+      <div class="step-panel" data-onboarding-step="connexion" data-step-label="Connexion ChatGPT" data-require-check="tunnel_ok" hidden>
+        <div class="step-meta">Tunnel privé</div>
+        <h2>Relie maintenant le VPS à ChatGPT.</h2>
+        <p class="lede">Le tunnel est sortant : tu n’ouvres pas de port MCP public sur le VPS.</p>
+        <ol class="checklist">
+          <li><span class="bullet">1</span><span>Dans OpenAI Platform, crée ou sélectionne un <strong>MCP Tunnel</strong>.</span></li>
+          <li><span class="bullet">2</span><span>Crée une clé runtime pour le tunnel avec les droits nécessaires <strong>Tunnels Read + Use</strong>.</span></li>
+          <li><span class="bullet">3</span><span>Sur le VPS, lance la commande ci-dessous et saisis l’ID du tunnel et la clé uniquement dans le terminal.</span></li>
+          <li><span class="bullet">4</span><span>Dans ChatGPT, crée l’app MCP en mode développeur, choisis <strong>Tunnel</strong>, scanne les outils puis enregistre l’app.</span></li>
+        </ol>
+        <div class="command">
+          <div class="command-head"><span>Sur ton VPS</span><button class="copy-button" type="button" data-copy-id="tunnel-command" data-copied="Commande copiée">Copier</button></div>
+          <pre><code id="tunnel-command">sudo wisp-mcp-openai-setup</code></pre>
+        </div>
+        <div class="link-row"><a class="text-link" href="https://developers.openai.com/api/docs/guides/secure-mcp-tunnels">Documentation Secure MCP Tunnel</a><a class="text-link" href="https://help.openai.com/fr-fr/articles/12584461-developer-mode-and-full-mcp-connectors-in-chatgpt-beta">Mode développeur ChatGPT</a></div>
+        <div class="confirm-row"><input id="tunnel-ok" type="checkbox" data-check-key="tunnel_ok"><label for="tunnel-ok">L’app Wisp MCP est créée et ses outils apparaissent dans ChatGPT.</label></div>
+      </div>
+
+      <div class="step-panel" data-onboarding-step="memoire" data-step-label="Mémoire de projet" hidden>
+        <div class="step-meta">Routines IA</div>
+        <h2>Ajoute trois Skills pour garder l’IA propre.</h2>
+        <p class="lede">Copie chaque instruction dans ChatGPT et demande-lui de créer le Skill. Ils servent à conserver le contexte dans GitHub, à travailler prudemment avec Wisp et à terminer chaque changement avec une vérification.</p>
+        <div class="skill-list">
+          <div class="skill-row"><div><strong>Project Memory</strong><p>Règles, roadmap, décisions et handoff restent versionnés dans le dépôt privé.</p></div><button type="button" data-copy-id="skill-memory" data-copied="Instruction copiée">Copier l’instruction</button></div>
+          <div class="skill-row"><div><strong>Wisp Safe Ops</strong><p>Inspecter avant de modifier, sauvegarder avant le risque, vérifier après chaque action.</p></div><button type="button" data-copy-id="skill-wisp" data-copied="Instruction copiée">Copier l’instruction</button></div>
+          <div class="skill-row"><div><strong>Release Guard</strong><p>Tests, état réel, rollback et handoff avant de considérer un lot terminé.</p></div><button type="button" data-copy-id="skill-release" data-copied="Instruction copiée">Copier l’instruction</button></div>
+        </div>
+        <textarea id="skill-memory" hidden>Crée un Skill nommé project-memory. Il doit s’appliquer quand je travaille sur un dépôt GitHub. Avant de modifier, il lit les règles du dépôt. Pendant le travail, il conserve les décisions durables dans des fichiers versionnés adaptés au projet, notamment AGENTS.md, ROADMAP.md et HANDOFF.md quand ils existent. Il ne met jamais de secret dans Git. À la fin d’un lot important, il met à jour le handoff avec l’état réel, ce qui reste à faire et les vérifications réellement exécutées.</textarea>
+        <textarea id="skill-wisp" hidden>Crée un Skill nommé wisp-safe-ops. Il doit s’appliquer dès que Wisp MCP est utilisé. Il inspecte toujours le serveur, les fichiers concernés et les logs avant une modification. Il commence en lecture seule, n’active que les capacités nécessaires, garde les opérations destructrices désactivées par défaut, sauvegarde avant une opération risquée, fait le plus petit changement utile puis vérifie l’état et les logs. Il ne demande jamais de token, mot de passe ou clé privée dans le chat.</textarea>
+        <textarea id="skill-release" hidden>Crée un Skill nommé release-guard. Il doit s’appliquer avant de déclarer une modification logicielle ou serveur terminée. Il exige les tests pertinents, une vérification de l’état réellement déployé, un rollback clair pour les changements à risque et une mise à jour du handoff. Il distingue toujours ce qui est seulement implémenté, testé, déployé et vérifié en production. Il ne prétend jamais qu’un contrôle a été exécuté s’il ne l’a pas été.</textarea>
+        <div class="inline-note">Les Skills sont recommandés, pas obligatoires pour utiliser Wisp MCP. Tu peux aussi les créer plus tard.</div>
+      </div>
+
+      <div class="step-panel" data-onboarding-step="termine" data-step-label="Terminé" hidden>
+        <div class="success-mark" aria-hidden="true">OK</div>
+        <h2>C’est prêt. Commence en lecture seule.</h2>
+        <p class="lede">Ta première demande doit vérifier la connexion sans modifier le serveur. Si cette réponse fonctionne, ouvre ensuite les permissions Wisp MCP uniquement lorsque la tâche en a besoin.</p>
+        <div class="done-prompt">« Liste mes serveurs WISP et résume leur état actuel sans rien modifier. Signale les erreurs ou alertes visibles. »</div>
+        <div class="link-row"><a class="btn primary" href="https://chatgpt.com/">Ouvrir ChatGPT</a><a class="btn secondary" href="https://github.com/BreezeDelegate/wisp-mcp">Ouvrir le dépôt Wisp MCP</a></div>
+        <div class="inline-note success">Si ChatGPT voit les outils Wisp et peut lire l’état du serveur, l’onboarding est terminé.</div>
+      </div>
+    </main>
+
+    <div class="stage-actions" aria-label="Navigation de l’onboarding">
+      <div class="action-left"><button class="btn secondary" type="button" data-back>Retour</button><button class="btn quiet" type="button" data-restart>Recommencer</button></div>
+      <div class="action-right"><button class="btn primary" type="button" data-next data-default-label="Continuer">Continuer</button></div>
+    </div>
+  </div>
+</div>
+<div class="toast" role="status" aria-live="polite" data-toast hidden>Copié</div>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

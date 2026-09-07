@@ -2,6 +2,7 @@
 
 ## 1.5.0 - 2026-09-07
 
+- rebuild the public site as a clean-slate, step-first onboarding wizard with no marketing landing layer or reused legacy UI structure
 - replace the GitHub Pages landing page with a guided, bilingual public onboarding for ChatGPT and WISP
 - add a privacy-preserving local readiness checklist and explicit least-privilege setup flow
 - add a hardened static-site container deployment for `wisp.hinoake.com` with rollback support
