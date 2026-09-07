@@ -10,3 +10,7 @@ Before any development, deployment, Git/GitHub write, migration, DNS/network cha
 
 Inspect the real VPS state before changing it. If repository-local documentation conflicts with either canonical reference or with the live state, stop, reconcile the mismatch, and update the documentation instead of guessing. Keep the project handoff/status documentation current before ending substantial work.
 <!-- CANONICAL_VPS_CONTEXT:END -->
+
+## BreezeDelegate ChatGPT gate
+
+For BreezeDelegate-operated ChatGPT sessions, apply `breeze-workspace` before using Wisp MCP or changing this repository. Then load `workspace-reference`, the active project rules, and `vps-infrastructure` when personal VPS state is involved. If routing says Pro, stop and use `breeze-pro-workspace` with MCP `VPS Pro` instead.
