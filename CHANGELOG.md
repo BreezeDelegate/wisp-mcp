@@ -3,6 +3,8 @@
 ## Unreleased - 2026-10-29
 
 - retire the public onboarding website and its deployment code; retain the documentation in this repository
+- rework English and French setup guidance; document security boundaries and contributing requirements
+- include the full standard PolyForm Noncommercial 1.0.0 license text without changing permissions
 
 ## 1.5.0 - 2026-09-07
 
