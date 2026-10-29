@@ -46,7 +46,7 @@ wisp-mcp = "wisp_mcp.cli:main"
 Homepage = "https://github.com/BreezeDelegate/wisp-mcp"
 Repository = "https://github.com/BreezeDelegate/wisp-mcp"
 Issues = "https://github.com/BreezeDelegate/wisp-mcp/issues"
-Documentation = "https://wisp.hinoake.com/"
+Documentation = "https://github.com/BreezeDelegate/wisp-mcp/blob/main/docs/getting-started.md"
 Changelog = "https://github.com/BreezeDelegate/wisp-mcp/blob/main/CHANGELOG.md"
 
 [build-system]

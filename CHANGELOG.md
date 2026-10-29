@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased - 2026-10-29
+
+- retire the public onboarding website and its deployment code; retain the documentation in this repository
+
 ## 1.5.0 - 2026-09-07
 
 - rebuild the public site as a clean-slate, step-first onboarding wizard with no marketing landing layer or reused legacy UI structure
