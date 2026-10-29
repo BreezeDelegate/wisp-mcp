@@ -898,11 +898,11 @@ async def delete_database(database_id: DatabaseIdArg, server_id: ServerIdArg = N
     return await WispClient(settings).request("DELETE", _server_path(sid, f"/databases/{did}"))
 
 
-@mcp.tool(annotations=_IDEMPOTENT_WRITE)
+@mcp.tool(annotations=_DESTRUCTIVE)
 async def toggle_monitoring(server_id: ServerIdArg = None) -> Any:
     """
-    Toggle Wisp monitoring for the selected server. Use only when the monitoring state should
-    change; this mutates server settings and requires WISP_ALLOW_SERVER_SETTINGS.
+    Switch Wisp monitoring to its opposite state for the selected server. Each call flips
+    the current setting, so do not retry blindly. Requires WISP_ALLOW_SERVER_SETTINGS.
     """
     settings = _settings()
     _require(settings.allow_server_settings, "WISP_ALLOW_SERVER_SETTINGS")
@@ -910,11 +910,11 @@ async def toggle_monitoring(server_id: ServerIdArg = None) -> Any:
     return await WispClient(settings).request("POST", _server_path(sid, "/advanced/monitor"))
 
 
-@mcp.tool(annotations=_IDEMPOTENT_WRITE)
+@mcp.tool(annotations=_DESTRUCTIVE)
 async def toggle_support_access(server_id: ServerIdArg = None) -> Any:
     """
-    Toggle hosting-provider support access for the selected server. Use only when support access
-    should change; this mutates server settings and requires WISP_ALLOW_SERVER_SETTINGS.
+    Switch hosting-provider support access to its opposite state. Each call flips the
+    current setting, so do not retry blindly. Requires WISP_ALLOW_SERVER_SETTINGS.
     """
     settings = _settings()
     _require(settings.allow_server_settings, "WISP_ALLOW_SERVER_SETTINGS")
